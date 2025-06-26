@@ -52,11 +52,11 @@ router.post("/singin", (req,res)=>{
         bcrypt.compare(password,dbUser.password)
         .then(()=>{
             const token= jwt.sign({id:dbUser._id}, SECRETKEY )
-
+            
             res.status(201).json({msg:"login successfully",token})
-        })
-    })
+        });
+    });
 
-})
+});
 
 module.exports = router
