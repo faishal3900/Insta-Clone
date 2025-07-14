@@ -1,6 +1,6 @@
 const express=require("express")
 const Post =require("../models/post")
-const LoginReq = require("../middleware/LoginReq")
+const LoginReq = require("../middleware/loginReq")
 const router=express.Router()
 
 router.post('/createPost', LoginReq, (req, res)=>{
@@ -12,10 +12,12 @@ router.post('/createPost', LoginReq, (req, res)=>{
         });
       }
       const post = new Post({
-         title,
+        title,
         body,
-        photo: pic,
+        photos: pic,
         postedBy: req.user,
+        userName: req.user.name,
+        pic: req.user.pic,
       })
      post.save()
         .then(()=>{
@@ -45,6 +47,7 @@ router.put('/like',LoginReq,(req,res)=>{
       postId,
       {
         $push: { likes: req.user._id}
+        
       },
       {
        new :true,
@@ -76,6 +79,9 @@ router.put('/comment',LoginReq,(req,res)=>{
   const postComment ={
     text: req.body.text,
     postedBy: req.user._id,
+    userName: req.user.name,
+    pic: req.user.pic,
+   
   };
    Post.findByIdAndUpdate(
     req.body.postId,

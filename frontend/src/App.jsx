@@ -1,15 +1,26 @@
-import React from 'react';
+
+import Home from './components/home/Home';
+
+import { Route, Routes } from 'react-router-dom';
+import LoginPopup from './components/Login/Login';
+import Create from './components/create/Create';
+import Profile from './components/profile/Profile';
+// import CommentData from './components/comment/CommentData';
+
+
+
+
 
 const App = () => {
   return (
-    <div >
-      <form action="onSubmit" style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
-        <input type="text" placeholder='Name' />
-        <input type="text" placeholder='Email' />
-        <input type="text" placeholder='Password' />
-        <button>Singup</button>
-      </form>
-    </div>
+
+    <Routes>
+      <Route path="/" element={<LoginPopup />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/create" element={<Create />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
+
   );
 }
 

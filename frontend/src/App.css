@@ -1,0 +1,18 @@
+
+
+.hSideNav:hover{
+    background-color: rgba(144, 144, 144, 0.201);
+}
+.active{
+    color: white;
+    background-color: rgb(214, 0, 0);
+    font-weight: 600;
+}
+#activeDark{
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+#dark{
+background-color: black;
+color: white;
+}
