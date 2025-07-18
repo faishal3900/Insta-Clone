@@ -1,10 +1,10 @@
 
 import Home from './components/home/Home';
-
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, Route, RouterProvider, Routes } from 'react-router-dom';
 import LoginPopup from './components/Login/Login';
 import Create from './components/create/Create';
 import Profile from './components/profile/Profile';
+import AppOutlet from './components/AppOutlet';
 // import CommentData from './components/comment/CommentData';
 
 
@@ -12,16 +12,44 @@ import Profile from './components/profile/Profile';
 
 
 const App = () => {
-  return (
 
-    <Routes>
-      <Route path="/" element={<LoginPopup />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/create" element={<Create />} />
-      <Route path="/profile" element={<Profile />} />
-    </Routes>
+  const router = createBrowserRouter([
 
-  );
+    {
+      path: "/",
+      element: <LoginPopup />,
+    },
+    {
+      path: "/",
+      element: <AppOutlet />,
+      children: [
+        {
+          path: "/home",
+          element: <Home />,
+        },
+        {
+          path: "/create",
+          element: <Create />,
+        },
+        {
+          path: "/profile",
+          element: <Profile />,
+        },
+      ]
+    },
+
+
+  ])
+
+  // <Routes>
+  //   <Route path="/" element={<LoginPopup />} /> n
+  //   <Route path="/home" element={<Home />} />
+  //   <Route path="/create" element={<Create />} />
+  //   <Route path="/profile" element={<Profile />} />
+  // </Routes>
+
+  return <RouterProvider router={router} />
+
 }
 
 export default App;

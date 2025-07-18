@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { assets } from '../../assets/assets';
-import { useNavigate } from 'react-router-dom';
-import SideNavbar from '../home/SideNavbar';
+// import { assets } from '../../assets/assets';
+// import { useNavigate } from 'react-router-dom';
+// import SideNavbar from '../Navbar/SideNavbar';
 import { ThemeContext } from '../context/Context';
 
 const Create = () => {
@@ -10,7 +10,7 @@ const Create = () => {
     const [body, setBody] = useState()
     const [pic, setPic] = useState()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     function submitPostData(e) {
         e.preventDefault()
         fetch("http://localhost:3000/createPost", {
@@ -35,7 +35,7 @@ const Create = () => {
     return (
         <>
             <div className='h-dvh' id={dark == true ? "dark" : ""}>
-                <SideNavbar />
+                {/* <SideNavbar /> */}
                 <div className=" w-full flex justify-center ">
                     {/* <img onClick={() => setShowLogin(false)} src={assets.cross_icon} alt="" /> */}
 

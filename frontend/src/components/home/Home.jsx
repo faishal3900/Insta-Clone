@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { data, useParams } from 'react-router';
-import SideNavbar from './SideNavbar';
+import SideNavbar from '../Navbar/SideNavbar';
 import Post from './Post';
 import Suggested from './Suggested';
 import SearchIcon from '@mui/icons-material/Search';
@@ -25,7 +25,7 @@ const Home = () => {
                 <Switch onClick={toggleTheme} className='p-1.5  mt-3' defaultChecked /><h1 className='mr-8'>Switch</h1>
             </div>
             <div className='grid grid-cols-4 gap-4' id={dark ? 'dark' : ''}>
-                <SideNavbar />
+                {/* <SideNavbar /> */}
                 <Post />
                 <Suggested />
 

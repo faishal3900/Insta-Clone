@@ -13,17 +13,18 @@ router.get('/alluser', LoginReq,(req,res)=>{
 });
 
 
-router.get('/profile/:id',(req,res)=>{
-User.findOne({_id: req.params.id})
-    .then((data)=>{
-      console.log(data)
-      Post.find({postedBY: req.params.id})
-          .then((data)=> {res.json(data)
-            console.log(data);
+// router.get('/profile/:id',(req,res)=>{
+// User.findOne({_id: req.params.id})
+//     .then((data)=>{
+//       console.log(data)
+//       Post.find({postedBY: req.params.id})
+//           .then((data)=> {res.json(data)
+//             console.log(data);
             
-          })
-          .catch(err=> console.log(err)
-          )
-    })
-})
+//           })
+//           .catch(err=> console.log(err)
+//           )
+//     })
+// })
+
 module.exports = router

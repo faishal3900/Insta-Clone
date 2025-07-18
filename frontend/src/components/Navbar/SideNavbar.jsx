@@ -32,7 +32,7 @@ const SideNavbar = () => {
     const { dark, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <div className='grid grid-cols-1 w-60 border-r border-gray-600 fixed top-0 bottom-0 left-0 scroll-smooth'>
+        <div className={`grid grid-cols-1 w-60 border-r border-gray-600 fixed top-0 bottom-0 left-0 scroll-smooth`} id={dark == true ? "dark" : ""}>
             <ul className=''>
                 <img className='w-45 mb-3 mt-3 pb-4 pt-4 pr-3  pl-3' src={dark ? assets.Instagram_logo_w : assets.Instagram_logo} alt="" />
                 <li onClick={homeHendler} className={`p-2 mb-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "home" ? "active" : ""}`} style={{ cursor: "pointer", }}><HomeIcon className='mr-3' />Home</li>

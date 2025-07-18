@@ -146,13 +146,13 @@ const PostDisplay = (Props, userName) => {
                     <div className={`mb-6 w-110  rounded ${dark == true ? "dark" : ""}`}>
                         {/* <img className='w-50' src={Props.posts.photos} /> */}
                         <div className=' '>
-                            {Props.posts.comment.map((com, idx) =>   {
+                            {Props.posts.comment.map((com, idx) => {
                                 return (
                                     <div className='' key={idx}>
                                         <div className='flex items-center'>
                                             <img className='w-8 h-8 rounded-4xl m-2' src={com.pic} alt="" />
                                             <h1 className=' font-medium' >{com.userName} </h1>
-                                            <p className=''>{com.text}</p>
+                                            <p className=''> :- {com.text}</p>
                                         </div>
                                     </div>
                                 )

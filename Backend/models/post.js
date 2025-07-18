@@ -33,6 +33,9 @@ const postSchema = new mongoose.Schema({
         userName: String, 
         pic: String, 
     }],
-})
+},{
+    timestamps:true
+}
+)
 
 module.exports = mongoose.model("Post", postSchema)
