@@ -11,13 +11,13 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircleOutlined';
 import DehazeIcon from '@mui/icons-material/DehazeOutlined';
 import { assets } from '../../assets/assets';
 import { useNavigate } from 'react-router-dom';
-import { ThemeContext } from '../context/Context';
-
-
+import { ThemeContext, useAuth } from '../context/Context';
 
 const SideNavbar = () => {
     const [navActive, setNavActive] = useState("home")
     const navigate = useNavigate()
+    const { user } = useAuth(); // Logged-in user ka data
+
 
     function createHendlar() {
         setNavActive("create")
@@ -32,26 +32,58 @@ const SideNavbar = () => {
     const { dark, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <div className={`grid grid-cols-1 w-60 border-r border-gray-600 fixed top-0 bottom-0 left-0 scroll-smooth`} id={dark == true ? "dark" : ""}>
+        <div className={`fixed top-0 bottom-0 left-0 w-16 md:w-60 border-r border-gray-600 scroll-smooth transition-all duration-300`} id={dark == true ? "dark" : ""}>
             <ul className=''>
-                <img className='w-45 mb-3 mt-3 pb-4 pt-4 pr-3  pl-3' src={dark ? assets.Instagram_logo_w : assets.Instagram_logo} alt="" />
-                <li onClick={homeHendler} className={`p-2 mb-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "home" ? "active" : ""}`} style={{ cursor: "pointer", }}><HomeIcon className='mr-3' />Home</li>
+                <img
+                    className='w-8 md:w-45 mb-3 mt-3 pb-4 pt-4 mx-auto md:mx-0 md:pr-3 md:pl-3'
+                    src={dark ? assets.Instagram_logo_w : assets.Instagram_logo}
+                    alt=""
+                />
 
-                <li onClick={() => setNavActive("search")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "search" ? "active" : ""}`} style={{ cursor: "pointer", }}><SearchIcon className='mr-3' />Search</li>
+                <li onClick={homeHendler} className={`p-2 mb-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "home" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <HomeIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Home</span>
+                </li>
 
-                <li onClick={() => setNavActive("Explore")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "Explore" ? "active" : ""}`} style={{ cursor: "pointer", }}><ExploreIcon className='mr-3' />Explore</li>
+                <li onClick={() => setNavActive("search")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "search" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <SearchIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Search</span>
+                </li>
 
-                <li onClick={() => setNavActive("Reels")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "Reels" ? "active" : ""}`} style={{ cursor: "pointer", }}><Shop2Icon className='mr-3' />Reels</li>
+                <li onClick={() => setNavActive("Explore")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Explore" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <ExploreIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Explore</span>
+                </li>
 
-                <li onClick={() => setNavActive("Messages")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "Messages" ? "active" : ""}`} style={{ cursor: "pointer", }}><SendIcon className='mr-3' />Messages</li>
+                <li onClick={() => setNavActive("Reels")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Reels" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <Shop2Icon className='md:mr-3' />
+                    <span className='hidden md:inline'>Reels</span>
+                </li>
 
-                <li onClick={() => setNavActive("Notifications")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "Notifications" ? "active" : ""}`} style={{ cursor: "pointer", }}><FavoriteBorderIcon className='mr-3' />Notifications</li>
+                <li onClick={() => setNavActive("Messages")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Messages" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <SendIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Messages</span>
+                </li>
 
-                <li onClick={createHendlar} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "create" ? "active" : ""}`} style={{ cursor: "pointer", }}><AddBoxIcon className='mr-3' />Create</li>
+                <li onClick={() => setNavActive("Notifications")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Notifications" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <FavoriteBorderIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Notifications</span>
+                </li>
 
-                <li onClick={() => { setNavActive("Profile"), navigate("/profile") }} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "Profile" ? "active" : ""}`} style={{ cursor: "pointer", }}><AccountCircleIcon className='mr-3' />Profile</li>
+                <li onClick={createHendlar} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "create" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <AddBoxIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Create</span>
+                </li>
 
-                <li onClick={() => setNavActive("More")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav, ${navActive === "More" ? "active" : ""}`} style={{ cursor: "pointer", }}><DehazeIcon className='mr-3' />More</li>
+                <li onClick={() => { setNavActive("Profile"), navigate("/profile/" + user._id) }} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Profile" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <AccountCircleIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>Profile</span>
+                </li>
+
+                <li onClick={() => setNavActive("More")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "More" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <DehazeIcon className='md:mr-3' />
+                    <span className='hidden md:inline'>More</span>
+                </li>
             </ul>
         </div>
     );

@@ -3,52 +3,90 @@ import SideNavbar from '../Navbar/SideNavbar';
 import { ThemeContext } from '../context/Context';
 import { assets } from '../../assets/assets';
 import { useEffect } from 'react';
+import { useState } from 'react';
+import { useParams } from "react-router-dom";
+import { useAuth } from "../context/Context";
 
 const Profile = () => {
-    const { dark, toggleTheme } = useContext(ThemeContext);
 
+    const { id } = useParams(); // URL se ID (if available)
+    const { user } = useAuth(); // Logged-in user ka data
+    const userId = id || user?._id; // Priority: URL ID > Logged-in I
+
+    const { dark, toggleTheme } = useContext(ThemeContext);
+    const [postDatas, setPostDatas] = useState([{
+        posts: []
+    }])
+    const [userDatas, setUserDatas] = useState({
+        followers: [],
+        following: [],
+        pic: '',
+        name: ''
+    })
+
+    const { setUser } = useContext(ThemeContext);
     // const Id = "6871fb95b374d17fe174df64"
+    console.log(userId);
+
     function ProfileData() {
-        fetch("http://localhost:3000/profile/6871fb95b374d17fe174df64", {
+        if (!userId) return;
+        fetch(`http://localhost:3000/profile/${userId}`, {
             method: "get",
             headers: {
                 "Content-Type": "application/json",
             }
         })
             .then((res => res.json()))
-            .then((data) => console.log(data))
+            .then((data) => {
+                setPostDatas(data.posts)
+                setUserDatas(data.user)
+            })
     }
     useEffect(() => {
         ProfileData()
-    }, [])
+    }, [userId])
+
+
+    console.log(userDatas);
+
+    // console.log(profileDatas.posts);
 
     return (
-        <div className='h-auto' id={dark == true ? "dark" : ""}>
+        <div className='h-full grid grid-cols-1 gap-4' id={dark == true ? "dark" : ""}>
             <div className='flex justify-center  '>
                 <div className='w-30 m-20 h-30 rounded-full border-2'>
-                    <img src={assets.Profile_pic} alt="" />
+                    <img className='w-30 h-30 rounded-full' src={userDatas.pic} alt="" />
                 </div>
                 <div className='m-20'>
                     <div className='flex gap-9'>
-                        <h1>life_error_011</h1>
-                        <button>Edit Profile</button>
+                        <h1 className='font-medium'>{userDatas.name}</h1>
+                        <button className='bg-gray-700 p-1 pl-2 mb-3 pr-2 rounded-lg cursor-pointer'>Edit Profile</button>
                     </div>
-                    <div className='flex gap-9 font-bold'>
-                        <h1> 4 dsds</h1>
-                        <h1>76 sds</h1>
-                        <h1> 80 dsa</h1>
+                    <div className='flex gap-9 '>
+                        <h1>  <span className='font-medium'>{postDatas.length}</span> Posts</h1>
+                        <h1><span className='font-medium'>{userDatas.followers.length}</span> followers</h1>
+                        <h1><span className='font-medium'>{userDatas.following.length}</span> following</h1>
                     </div>
                     <div>
-                        <h1>code</h1>
-                        <p>me </p>
+                        <h1>{userDatas.name}</h1>
                     </div>
                 </div>
             </div>
-            <hr className='w' />
-            <div className='flex justify-center-safe mt-5 gap-3 ml-60'>
-                <img className='w-60' src={assets.post_img} alt="" />
-                <img className='w-60' src={assets.post_img} alt="" />
-                <img className='w-60' src={assets.post_img} alt="" />
+            <div className='justify-end flex'>
+                <hr className=' w-[1025px]' />
+            </div>
+            <div className='flex  justify-start flex-wrap mt-5 gap-5 ml-90 mb-10'>
+                {postDatas.map((postD, indx) => {
+                    return (
+                        <span className=''>
+                            <img className='w-60' src={postD.photos} alt="" />
+                        </span>
+                    )
+
+                })
+                }
+
+
             </div>
         </div>
     );

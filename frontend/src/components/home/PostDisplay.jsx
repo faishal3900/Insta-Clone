@@ -121,10 +121,9 @@ const PostDisplay = (Props, userName) => {
     }
 
     return (
-
         <>
 
-            <div className='grid grid-cols-1 w-md   '>
+            <div className='grid grid-cols-1 max-w-[450px] min-w-[160px]'>
                 <div className='flex items-center mb-3 gap-2'>
                     <img src={Props.posts.pic} alt="" className='h-8 w-8 rounded-full' />
                     <h1 className='text-black font-bold' id={dark == true ? "dark" : ""}>
@@ -132,7 +131,7 @@ const PostDisplay = (Props, userName) => {
                         <p className='text-[12px] font-medium text-gray-500'>Delhi,Delhi</p>
                     </h1>
                 </div>
-                <img src={Props.posts.photos} alt="" width={"450px"} />
+                <img src={Props.posts.photos} alt="" />
                 <div className='flex gap-6'>
                     <p onClick={likeHandler} style={{ cursor: "pointer" }}>{Props.posts.likes.length}<FavoriteBorderIcon /> </p>
                     <p onClick={comment} style={{ cursor: "pointer" }}>{Props.posts.comment.length}<ChatBubbleOutlineOutlinedIcon /> </p>

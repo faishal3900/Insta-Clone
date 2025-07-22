@@ -32,7 +32,7 @@ const App = () => {
           element: <Create />,
         },
         {
-          path: "/profile",
+          path: "/profile/:id",
           element: <Profile />,
         },
       ]
@@ -42,6 +42,7 @@ const App = () => {
   ])
 
   // <Routes>
+  // <Route path="/profile/:id" element={<Profile />} />
   //   <Route path="/" element={<LoginPopup />} /> n
   //   <Route path="/home" element={<Home />} />
   //   <Route path="/create" element={<Create />} />
