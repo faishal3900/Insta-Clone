@@ -29,7 +29,7 @@ const Post = () => {
     // console.log(data);
 
     return (
-        <div className='sm:ml-80 ml-35'>
+        <div className='m-auto'>
             {data.map((post, idx) => <PostDisplay posts={post} key={idx} />)}
         </div>
 

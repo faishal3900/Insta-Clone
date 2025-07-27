@@ -36,12 +36,13 @@ const Suggested = () => {
         allUserData()
     }, []);
 
+    const { followId, setFollow, following, followFun } = useContext(ThemeContext);
 
 
     const navigate = useNavigate()
 
     return (
-        <div className=' ml-40 hidden sm:block'>
+        <div className=' ml-40 hidden lg:inline absolute right-3'>
 
             <div className='flex justify-center items-center max-w-[300px] min-w-[100px] gap-3 mt-7'>
                 <img src={assets.dp_img} alt="" className='h-12 w-12 rounded-full' />
@@ -51,10 +52,23 @@ const Suggested = () => {
             <div className='font-medium text-gray-500 mt-4'>
                 <h3>Suggested for you</h3>
             </div>
+
             {randomUsers.map((User, idx) => {
                 // console.log(User);
                 function profileHandlar() {
                     navigate("/profile/" + User._id)
+                }
+
+                function followHendlar() {
+                    setFollow(User._id)
+                    followFun()
+                    // setfollowingData(following.map(id => id == User._id))
+                    // console.log(following);
+
+                }
+                const isFollowing = (following) && (User._id);
+                {
+                    console.log(isFollowing);
                 }
                 return (
                     <div key={idx}>
@@ -65,7 +79,7 @@ const Suggested = () => {
                                     <h2 className='font-medium cursor-pointer' onClick={profileHandlar} >{User.name}</h2>
                                     <p className='text-[12px] font-medium text-gray-500'>Followed by shaily97541</p>
                                 </div>
-                                <button className='ml-2.5 font-bold text-blue-400' style={{ cursor: "pointer" }}>Follow</button>
+                                <button className='ml-2.5 font-bold text-blue-400' style={{ cursor: "pointer" }} onClick={followHendlar}>{isFollowing ? "Unfollow" : "Follow"}</button>
                             </div>
                         </div>
                     </div>

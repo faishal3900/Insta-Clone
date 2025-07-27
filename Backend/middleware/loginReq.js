@@ -26,9 +26,7 @@ const  token = authorization.replace("Bearer ","")
         User.findById(id)
         .then(savedUser=>{
             // console.log("middeware",savedUser);
-           
-            // req.password = undefined
-            
+            savedUser.password=undefined
             req.user = savedUser
             next();
         })

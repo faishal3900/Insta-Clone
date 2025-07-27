@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Login.css'
 import { assets } from '../../assets/assets'
 import { useNavigate } from 'react-router-dom'
+import Context from '../context/Context'
 
 
 
@@ -10,6 +11,9 @@ const LoginPopup = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loginUserData, setLoginUserData] = useState("")
+
+    console.log(loginUserData);
 
 
     const navigate = useNavigate()
@@ -28,7 +32,8 @@ const LoginPopup = () => {
                 .then((data) => {
 
                     // localStorage.setItem("jwt", data.token)
-                    console.log("jwt", data.token);
+                    console.log("jwt", data.dbUser._id);
+                    setLoginUserData(data.dbUser)
                     if (data.token) {
                         localStorage.setItem("jwt", data.token);
                         navigate("/home"); // 👈 navigate after success

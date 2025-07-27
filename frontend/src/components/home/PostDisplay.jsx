@@ -120,18 +120,23 @@ const PostDisplay = (Props, userName) => {
 
     }
 
+    function clickHendlar() {
+        navigate("/profile/" + Props.posts.postedBy)
+        // console.log(Props.posts._id)
+    }
+
+
     return (
         <>
-
-            <div className='grid grid-cols-1 max-w-[450px] min-w-[160px]'>
-                <div className='flex items-center mb-3 gap-2'>
-                    <img src={Props.posts.pic} alt="" className='h-8 w-8 rounded-full' />
-                    <h1 className='text-black font-bold' id={dark == true ? "dark" : ""}>
-                        {Props.posts.userName}
+            <div className='grid grid-cols-1 sm:w-[450px]  w-45 '>
+                <div onClick={clickHendlar} className='flex items-center mb-3 gap-2  '>
+                    <img src={Props.posts.pic} alt="" className='h-8 w-8 rounded-full cursor-pointer' />
+                    <div className='cursor-pointer'>
+                        <h1 className='text-black font-bold' id={dark == true ? "dark" : ""}>{Props.posts.userName}</h1>
                         <p className='text-[12px] font-medium text-gray-500'>Delhi,Delhi</p>
-                    </h1>
+                    </div>
                 </div>
-                <img src={Props.posts.photos} alt="" />
+                <img className='' src={Props.posts.photos} alt="" />
                 <div className='flex gap-6'>
                     <p onClick={likeHandler} style={{ cursor: "pointer" }}>{Props.posts.likes.length}<FavoriteBorderIcon /> </p>
                     <p onClick={comment} style={{ cursor: "pointer" }}>{Props.posts.comment.length}<ChatBubbleOutlineOutlinedIcon /> </p>

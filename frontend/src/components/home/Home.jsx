@@ -24,7 +24,7 @@ const Home = () => {
             <div className='w-full flex justify-end items-center' id={dark == true ? "dark" : ""}>
                 <Switch onClick={toggleTheme} className='p-1.5  mt-3' defaultChecked /><h1 className='mr-8'>Switch</h1>
             </div>
-            <div className='grid grid-cols-2 gap-4' id={dark ? 'dark' : ''}>
+            <div className='grid grid-cols-1 gap-4' id={dark ? 'dark' : ''}>
                 {/* <SideNavbar /> */}
                 <Post />
                 <Suggested />
