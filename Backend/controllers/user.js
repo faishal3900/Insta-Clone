@@ -36,6 +36,11 @@ router.get('/profile/:id', (req, res) => {
 });
 
 router.put('/follow', LoginReq, (req, res) => {
+   
+  if (req.user._id.toString() === req.body.followId) {
+    return res.status(400).json({ error: "You cannot follow or unfollow yourself." });
+  }
+
   User.findById(req.user._id)
     .then(data => {
       const isFollowing = data.following.includes(req.body.followId);
@@ -47,6 +52,7 @@ router.put('/follow', LoginReq, (req, res) => {
       const updateCurrentUser = isFollowing 
         ? { $pull: { following: req.body.followId } } 
         : { $addToSet: { following: req.body.followId } };
+
       return User.findByIdAndUpdate(
         req.body.followId,
         updateTargetUser,

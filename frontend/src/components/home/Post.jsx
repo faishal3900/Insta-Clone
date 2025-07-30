@@ -27,7 +27,7 @@ const Post = () => {
         submitFormData();
     }, [data.posts]);
     // console.log(data);
-
+    data.reverse()
     return (
         <div className='m-auto'>
             {data.map((post, idx) => <PostDisplay posts={post} key={idx} />)}

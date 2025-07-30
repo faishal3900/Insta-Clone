@@ -8,16 +8,19 @@ const ThemeProvider = ({ children, },) => {
     const [dark, setDark] = useState(true);
     const toggleTheme = () => setDark(!dark);
 
+    const [border, setBorder] = useState(true);
+
+
     const [followId, setFollow] = useState()
-    const [following, setFollowing] = useState()
+    const [following, setFollowing] = useState([])
+    const [followFiar, setFollowFiar] = useState(true)
 
     const [comment, setComment] = useState(true)
     const btnComment = () => setComment(!comment)
 
-    const [user, setUser] = useState({
-        _id: "687fcb239ef415edf82881b1", // Example ID (replace with real auth)
-        // name: "John",
-    });
+    const [loginId, setLoginId] = useState()
+    const [user, setUser] = useState({});
+
 
     function followFun() {
         fetch("http://localhost:3000/follow", {
@@ -30,18 +33,19 @@ const ThemeProvider = ({ children, },) => {
         })
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
 
+                setUser(data)
                 setFollowing(data.following)
             })
+
     }
 
-    // console.log(following);
+    // console.log(following); 
 
 
     useEffect(() => {
         followFun()
-    }, [followId]);
+    }, [followId, followFiar]);
 
 
     return (
@@ -56,7 +60,11 @@ const ThemeProvider = ({ children, },) => {
                 followId,
                 setFollow,
                 following,
-                followFun
+                followFun,
+                followFiar,
+                setFollowFiar,
+                border,
+                setBorder
 
             }
         }>

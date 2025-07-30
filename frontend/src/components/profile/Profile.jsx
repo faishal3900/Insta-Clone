@@ -21,13 +21,27 @@ const Profile = () => {
         followers: [],
         following: [],
         pic: '',
-        name: ''
+        name: '',
+        _id: ''
     })
 
-    const { setUser } = useContext(ThemeContext);
-    // const Id = "6871fb95b374d17fe174df64"
-    console.log(userId);
+    const { following, setFollow, followFiar, setFollowFiar } = useContext(ThemeContext);
 
+    const isFollow = following.includes(userDatas._id)
+
+    function followHendlar(userId) {
+
+        if (followFiar == true) {
+            setFollow(userId);
+            setFollowFiar(false)
+        } else {
+            setFollow(userId);
+            setFollowFiar(true)
+        }
+    }
+
+    // const Id = "6871fb95b374d17fe174df64"
+    
     function ProfileData() {
         if (!userId) return;
         fetch(`http://localhost:3000/profile/${userId}`, {
@@ -39,6 +53,7 @@ const Profile = () => {
             .then((res => res.json()))
             .then((data) => {
                 setPostDatas(data.posts)
+
                 setUserDatas(data.user)
             })
     }
@@ -47,19 +62,19 @@ const Profile = () => {
     }, [userId])
 
 
-    console.log(userDatas);
-
+ 
     // console.log(profileDatas.posts);
 
     return (
-        <div className='h-full grid grid-cols-1 gap-4' id={dark == true ? "dark" : ""}>
+        <div className='max-h-full min-h-dvh grid grid-cols-1 gap-4' id={dark == true ? "dark" : ""}>
             <div className='flex justify-center  '>
                 <div className='w-30 m-20 h-30 rounded-full border-2'>
-                    <img className='w-30 h-30 rounded-full' src={userDatas.pic} alt="" />
+                    <img className='w-30 h-30 rounded-full' src={userDatas.pic || null} />
                 </div>
                 <div className='m-20'>
-                    <div className='flex gap-9'>
+                    <div className='flex gap-6'>
                         <h1 className='font-medium'>{userDatas.name}</h1>
+                        <button className='bg-blue-500 p-1 pl-2 mb-3 pr-2 rounded-lg cursor-pointer' onClick={() => followHendlar(userDatas._id)}>{isFollow ? "Unfollow" : "Follow"}</button>
                         <button className='bg-gray-700 p-1 pl-2 mb-3 pr-2 rounded-lg cursor-pointer'>Edit Profile</button>
                     </div>
                     <div className='flex gap-9 '>
@@ -73,12 +88,13 @@ const Profile = () => {
                 </div>
             </div>
             <div className='justify-end flex'>
-                <hr className=' w-[1025px]' />
+                <hr className=' w-[100%]' />
             </div>
             <div className='flex  justify-start flex-wrap mt-5 gap-5 ml-90 mb-10'>
                 {postDatas.map((postD, indx) => {
+
                     return (
-                        <span className=''>
+                        <span className='' key={indx}>
                             <img className='w-60' src={postD.photos} alt="" />
                         </span>
                     )

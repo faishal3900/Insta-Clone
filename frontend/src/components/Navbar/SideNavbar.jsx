@@ -16,7 +16,9 @@ import { ThemeContext, useAuth } from '../context/Context';
 const SideNavbar = () => {
     const [navActive, setNavActive] = useState("home")
     const navigate = useNavigate()
+
     const { user } = useAuth(); // Logged-in user ka data
+    console.log(user.pic);
 
 
     function createHendlar() {
@@ -27,9 +29,13 @@ const SideNavbar = () => {
         setNavActive("home")
         navigate("/home")
     }
-    console.log(navActive);
+    function logoutHendlar() {
+        localStorage.clear();
+        navigate("/");
+    }
 
-    const { dark, toggleTheme } = useContext(ThemeContext);
+
+    const { dark, toggleTheme, following, } = useContext(ThemeContext)
 
     return (
         <div className={`fixed top-0 bottom-0 left-0 w-16 lg:w-60 border-r border-gray-600 scroll-smooth transition-all duration-300`} id={dark == true ? "dark" : ""}>
@@ -75,14 +81,13 @@ const SideNavbar = () => {
                     <span className='hidden lg:inline'>Create</span>
                 </li>
 
-                <li onClick={() => { setNavActive("Profile"), navigate("/profile/" + user._id) }} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "Profile" ? "active" : ""}`} style={{ cursor: "pointer" }}>
-                    <AccountCircleIcon className='md:mr-3' />
+                <li onClick={() => { setNavActive("Profile"), navigate("/profile/" + user._id) }} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav flex gap-3 items-center ${navActive === "Profile" ? "active" : ""}`} style={{ cursor: "pointer" }}>
+                    <img className='w-10 h-10 rounded-4xl border-2' src={user.pic} alt="" />
                     <span className='hidden lg:inline'>Profile</span>
                 </li>
 
-                <li onClick={() => setNavActive("More")} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav ${navActive === "More" ? "active" : ""}`} style={{ cursor: "pointer" }}>
-                    <DehazeIcon className='md:mr-3' />
-                    <span className='hidden lg:inline'>More</span>
+                <li onClick={() => logoutHendlar()} className={`p-2 mb-3 mt-3 ml-2 mr-2 rounded-lg hSideNav `} style={{ cursor: "pointer" }}>
+                    <span className=' text-red-600 font-medium hidden lg:inline'>Logout</span>
                 </li>
             </ul>
         </div>

@@ -106,7 +106,7 @@ const PostDisplay = (Props, userName) => {
     }, []);
 
 
-    const { dark, toggleTheme } = useContext(ThemeContext);
+    const { dark, toggleTheme, border, setBorder } = useContext(ThemeContext);
 
     const [comBtn, setComBtn] = useState(true)
     const comment = () => {
@@ -128,12 +128,13 @@ const PostDisplay = (Props, userName) => {
 
     return (
         <>
-            <div className='grid grid-cols-1 sm:w-[450px]  w-45 '>
+            <div className={`grid grid-cols-1 sm:w-[450px] p-5 mt-5 w-45 border-2 rounded-2xl border-gray-300 shadow-2x ${dark == true ? "border-gray-900" : ""} `} >
+
                 <div onClick={clickHendlar} className='flex items-center mb-3 gap-2  '>
                     <img src={Props.posts.pic} alt="" className='h-8 w-8 rounded-full cursor-pointer' />
                     <div className='cursor-pointer'>
                         <h1 className='text-black font-bold' id={dark == true ? "dark" : ""}>{Props.posts.userName}</h1>
-                        <p className='text-[12px] font-medium text-gray-500'>Delhi,Delhi</p>
+                        <p className='text-[12px] font-medium text-gray-500'>{Props.posts.createdAt}</p>
                     </div>
                 </div>
                 <img className='' src={Props.posts.photos} alt="" />
@@ -144,43 +145,43 @@ const PostDisplay = (Props, userName) => {
                 <h3 className='font-bold'>{Props.posts.title}</h3>
                 <p>{Props.posts.body}</p>
                 <hr className='mt-5 mb-5 text-gray-500' />
-            </div>
-            <div className=''>
-                {selectedPostId && (
-                    <div className={`mb-6 w-110  rounded ${dark == true ? "dark" : ""}`}>
-                        {/* <img className='w-50' src={Props.posts.photos} /> */}
-                        <div className=' '>
-                            {Props.posts.comment.map((com, idx) => {
-                                return (
-                                    <div className='' key={idx}>
-                                        <div className='flex items-center'>
-                                            <img className='w-8 h-8 rounded-4xl m-2' src={com.pic} alt="" />
-                                            <h1 className=' font-medium' >{com.userName} </h1>
-                                            <p className=''> :- {com.text}</p>
+                <div className=''>
+                    {selectedPostId && (
+                        <div className={`mb-6 w-110  rounded ${dark == true ? "dark" : ""}`}>
+                            {/* <img className='w-50' src={Props.posts.photos} /> */}
+                            <div className=' '>
+                                {Props.posts.comment.map((com, idx) => {
+                                    return (
+                                        <div className='' key={idx}>
+                                            <div className='flex items-center'>
+                                                <img className='w-8 h-8 rounded-4xl m-2' src={com.pic} alt="" />
+                                                <h1 className=' font-medium' >{com.userName} </h1>
+                                                <p className=''> :- {com.text}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
+                                    )
 
-                            })}
+                                })}
 
+                            </div>
+                            <input
+                                value={text}
+                                placeholder="Write your comment..."
+                                onChange={(e) => setText(e.target.value)}
+                                className="border-2 px-3 py-2 rounded w-[90%] mb-2 "
+                                rows="1"
+                            />
+                            <button
+                                onClick={postComment}
+                                className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                                disabled={!text.trim()}
+                            >
+                                Post Comment
+                            </button>
                         </div>
-                        <input
-                            value={text}
-                            placeholder="Write your comment..."
-                            onChange={(e) => setText(e.target.value)}
-                            className="border-2 px-3 py-2 rounded w-full mb-2 "
-                            rows="1"
-                        />
-                        <button
-                            onClick={postComment}
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-                            disabled={!text.trim()}
-                        >
-                            Post Comment
-                        </button>
-                    </div>
-                )}
+                    )}
 
+                </div>
             </div>
         </>
     );
